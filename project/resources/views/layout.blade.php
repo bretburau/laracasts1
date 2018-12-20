@@ -7,11 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Projects</h1>
-    @foreach ($projects as $project)
-        <a href="/projects/{{ $project->id }}">    
-            <li>{{ $project->title }} - {{ $project->description }}</li>
-        </a>
-    @endforeach
+    
+    <div class="container">
+        @yield('content')
+    </div>
 </body>
 </html>
