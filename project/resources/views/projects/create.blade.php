@@ -15,20 +15,13 @@
         </div>
     
         <div>
-            <textarea required name="description" placeholder="Project description">{{ old('description') }}</textarea>
+            <textarea required name="description" placeholder="Project description" >{{ old('description') }}</textarea>
         </div>
     
         <div>
             <button type="submit">Create Project</button>
         </div>
-        @if ($errors->any())
-            <div>
-                <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </div>
-        @endif
+        @include('errors')
     </form> 
 </body>
 </html>
