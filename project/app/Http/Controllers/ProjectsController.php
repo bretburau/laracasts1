@@ -16,8 +16,8 @@ class ProjectsController extends Controller
     }
 
     public function index() {
-        $projects = Project::where('owner_id', auth()->id())->get();
-        // dump($projects);
+        $projects = auth()->user()->projects;
+        // $projects = Project::where('owner_id', auth()->id())->get();
         return view('projects.index', compact('projects'));
     }
 
@@ -40,7 +40,9 @@ class ProjectsController extends Controller
 
     public function update(Project $project)
     { 
-        $this->authorize('update', $project);
+        // $this->authorize('update', $project);
+
+        $project->update($this->validateProject());
 
         $project->update(request(['title', 'description']));
         return redirect('/projects');
@@ -59,10 +61,7 @@ class ProjectsController extends Controller
     {
         // $this->authorize('update', $project);
 
-        $attributes = request()->validate([
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:3']
-        ]);
+        $attributes = $this->validateProject();
 
         $attributes['owner_id'] = auth()->id();
 
@@ -74,5 +73,13 @@ class ProjectsController extends Controller
 
         return redirect('/projects');
         
+    }
+
+    protected function validateProject()
+    {
+        return request()->validate([
+            'title' => ['required', 'min:3'],
+            'description' => ['required', 'min:3']
+        ]);
     }
 }
