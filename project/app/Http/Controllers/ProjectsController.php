@@ -26,7 +26,8 @@ class ProjectsController extends Controller
 
     public function show(Project $project)
     {
-        $project = Project::findOrFail($project->id);
+        $this->authorize('update', $project);
+
         return view('projects.show', compact('project'));
     }
 
@@ -37,12 +38,16 @@ class ProjectsController extends Controller
 
     public function update(Project $project)
     { 
+        $this->authorize('update', $project);
+
         $project->update(request(['title', 'description']));
         return redirect('/projects');
     }
 
     public function destroy(Project $project)
     {
+        $this->authorize('update', $project);
+
         $project->delete();
 
         return redirect('/projects');
@@ -50,6 +55,8 @@ class ProjectsController extends Controller
 
     public function store()
     {
+        $this->authorize('update', $project);
+
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:3']
