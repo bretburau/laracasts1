@@ -10,16 +10,9 @@ class Project extends Model
 {
     protected $guarded = [];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($project){
-            Mail::to($project->owner->email)->send(
-                new ProjectCreated($project)
-            );
-        });
-    }
+    protected $dispatchesEvents = [
+        'created' => ProjectCreated::class    
+    ];
     
     public function tasks()
     {
