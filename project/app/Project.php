@@ -22,4 +22,8 @@ class Project extends Model
         ]);
         // $this->tasks()->create(compact('description')); //Throws error about field needing default value
     }
+
+    public function owner() {
+        return $this->belongsTo(User::class);
+    }
 }
