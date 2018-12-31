@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +13,12 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
+    return view('welcome');
+});
+
+
+Route::get('projects/create2', function (Request $request) {
     return view('welcome');
 });
 
